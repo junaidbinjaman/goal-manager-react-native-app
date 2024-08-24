@@ -1,10 +1,11 @@
 {
   "expo": {
     "name": "RNCourse",
-    "slug": "RNCourse",
+    "slug": "learn-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "backgroundColor": "#1e085a" ,
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -22,6 +23,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0fb613a7-a526-4bbf-a460-cd572f578941"
+      }
+    },
+    "owner": "junaidbinjaman"
   }
 }
