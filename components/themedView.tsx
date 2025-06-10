@@ -1,5 +1,4 @@
 import {
-    SafeAreaView,
     type StyleProp,
     useColorScheme,
     type ViewStyle,
