@@ -4,13 +4,14 @@ import {Stack} from 'expo-router';
 
 import {Colors} from '../constants/Colors';
 import {StatusBar} from 'expo-status-bar';
+import { UserProvider } from '../contexts/UserContext';
 
 const RootLayout = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? Colors : Colors['light'];
 
     return (
-        <>
+        <UserProvider>
             <StatusBar style='auto' />
             <View style={{flex: 1}}>
                 <Stack
@@ -29,7 +30,7 @@ const RootLayout = () => {
                     />
                 </Stack>
             </View>
-        </>
+        </UserProvider>
     );
 };
 

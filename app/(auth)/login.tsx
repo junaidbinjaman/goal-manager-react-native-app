@@ -8,14 +8,17 @@ import ThemedText from '../../components/themedText';
 import Spacer from '../../components/spacer';
 import ThemedButton from '../../components/themedButton';
 import ThemedTextInput from '../../components/themedTextInput';
+import { useUser } from '../../hooks/useUser';
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const { user } = useUser();
+
     const handleSubmit = () => {
-        console.log(email);
-        console.log(password);
+        console.log('Current user', user);
+        console.log('Login form submitted', email, password);
     };
 
     return (
