@@ -1,74 +1,103 @@
-import { Keyboard, StyleSheet, Text, Touchable, TouchableWithoutFeedback } from 'react-native'
-import React, { useState } from 'react';
+import {
+    Keyboard,
+    StyleSheet,
+    Text,
+    Touchable,
+    TouchableWithoutFeedback,
+} from 'react-native';
+import React, {useState} from 'react';
 
 // Theme components
-import ThemedView from '../../components/themedView'
-import ThemedText from '../../components/themedText'
-import Spacer from '../../components/spacer'
-import { Link } from 'expo-router'
-import ThemedButton from '../../components/themedButton'
+import ThemedView from '../../components/themedView';
+import ThemedText from '../../components/themedText';
+import Spacer from '../../components/spacer';
+import {Link} from 'expo-router';
+import ThemedButton from '../../components/themedButton';
 import ThemedTextInput from '../../components/themedTextInput';
+import {useUser} from '../../hooks/useUser';
+import {Colors} from '../../constants/Colors';
 
-const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+const Register = () => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] =  useState(null);
 
-  const handleSubmit = () => {
-        console.log('Register form submitted..', email, password);
+    const {user, register} = useUser();
+
+    const handleSubmit = async () => {
+      setError(null);
+      
+        try {
+            await register(email, password);
+        } catch (error: any) {
+            setError(error.message)
+        }
     };
 
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ThemedView style={styles.container}>
-      <Spacer />
+    return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <ThemedView style={styles.container}>
+                <Spacer />
 
-      <ThemedText title={true} style={styles.title}>
-        Register for an Account
-      </ThemedText>
+                <ThemedText title={true} style={styles.title}>
+                    Register for an Account
+                </ThemedText>
 
-      <ThemedTextInput 
-                style={{width: '80%', marginBottom: 20,}}
-                placeholder='Email'
-                keyboardType='email-address'
-                onChangeText={setEmail}
-                value={email}
-                
-            />
+                <ThemedTextInput
+                    style={{width: '80%', marginBottom: 20}}
+                    placeholder='Email'
+                    keyboardType='email-address'
+                    onChangeText={setEmail}
+                    value={email}
+                />
 
-            <ThemedTextInput 
-                style={{width: '80%', marginBottom: 20}}
-                placeholder='Password'
-                onChangeText={setPassword}
-                value={password}
-                secureTextEntry
-            />
+                <ThemedTextInput
+                    style={{width: '80%', marginBottom: 20}}
+                    placeholder='Password'
+                    onChangeText={setPassword}
+                    value={password}
+                    secureTextEntry
+                />
 
-      <ThemedButton onPress={handleSubmit}>
-                <Text style={{color: '#f2f2f2'}}>Register</Text>    
-            </ThemedButton>  
+                <ThemedButton onPress={handleSubmit}>
+                    <Text style={{color: '#f2f2f2'}}>Register</Text>
+                </ThemedButton>
 
-      <Spacer height={100} />
+                <Spacer />
+            {error && <Text style={styles.error}>{error}</Text>}
 
-      <Link href='/login'>
-      <ThemedText style={{textAlign: 'center'}}>Login</ThemedText>
-      </Link>
-    </ThemedView>
-    </TouchableWithoutFeedback>
-  )
-}
+                <Spacer height={100} />
 
-export default Login
+                <Link href='/login'>
+                    <ThemedText style={{textAlign: 'center'}}>Login</ThemedText>
+                </Link>
+            </ThemedView>
+        </TouchableWithoutFeedback>
+    );
+};
+
+export default Register;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     title: {
         textAlign: 'center',
         fontSize: 18,
-        marginBottom: 30
-    }
-})
+        marginBottom: 30,
+    },
+
+    error: {
+        color: Colors.warning,
+        padding: 10,
+        backgroundColor: '#f5c1c8',
+        borderColor: Colors.warning,
+        borderWidth: 1,
+        borderRadius: 6,
+        marginHorizontal: 10,
+    },
+});

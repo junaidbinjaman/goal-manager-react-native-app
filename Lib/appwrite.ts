@@ -3,8 +3,8 @@ import { Client, Account, Avatars } from 'react-native-appwrite';
 export const client = new Client();
 
 client
-    .setEndpoint('http://localhost/v1') // Your Appwrite Endpoint
-    .setProject('455x34dfkj') // Your project ID
+    .setEndpoint('https://fra.cloud.appwrite.io/v1') // Your Appwrite Endpoint
+    .setProject('6893f08e0002e74f04db') // Your project ID
     .setPlatform('com.example.myappwriteapp') // Your application ID or bundle ID.
 ;
 
