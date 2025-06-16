@@ -1,6 +1,8 @@
-import {StyleSheet, Pressable, Text, TextInput} from 'react-native';
+import {StyleSheet, Pressable, Text, TextInput, ActivityIndicator} from 'react-native';
 import React, { useState } from 'react';
 import {Link} from 'expo-router';
+import { useUser } from '../../hooks/useUser';
+import { Colors } from '../../constants/Colors';
 
 // Theme components
 import ThemedView from '../../components/themedView';
@@ -8,8 +10,7 @@ import ThemedText from '../../components/themedText';
 import Spacer from '../../components/spacer';
 import ThemedButton from '../../components/themedButton';
 import ThemedTextInput from '../../components/themedTextInput';
-import { useUser } from '../../hooks/useUser';
-import { Colors } from '../../constants/Colors';
+import ThemedLoader from '../../components/themedLoader';
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');
@@ -63,6 +64,7 @@ const Login = () => {
             <Link href='/register'>
                 <ThemedText style={{textAlign: 'center'}}>Register instead</ThemedText>
             </Link>
+
         </ThemedView>
     );
 };
