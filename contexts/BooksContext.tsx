@@ -3,10 +3,17 @@ import {databases} from '../Lib/appwrite';
 import {ID, Permission, Query, Role, Models} from 'react-native-appwrite';
 import { useUser } from '../hooks/useUser';
 
+export type BookDetailDataType = {
+    title: string;
+    author: string;
+    description: string;
+    id: string;
+}
+
 type BooksContextTypes = {
     books: Models.DefaultDocument[];
     fetchBooks: () => Promise<void>;
-    fetchBooksById: (id: string) => Promise<void>;
+    fetchBooksById: (id: string | string[]) => Promise<BookDetailDataType>;
     createBook: (data: any) => Promise<void>;
     deleteBook: (id: string) => Promise<void>;
 };
@@ -39,7 +46,13 @@ const BooksProvider = ({children}: {children: ReactNode}) => {
 
     async function fetchBooksById(id: string) {
         try {
-            //
+            const response = await databases.getDocument(
+                DATABASE_ID,
+                COLLECTION_ID,
+                id
+            )
+
+            return response;
         } catch (error: any) {
             console.log(error.message);
         }

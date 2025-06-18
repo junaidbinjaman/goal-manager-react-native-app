@@ -6,10 +6,12 @@ import ThemedView from '../../components/themedView'
 import ThemedText from '../../components/themedText'
 import { useBooks } from '../../hooks/useBooks';
 import ThemedCard from '../../components/themedCard';
+import { useRouter } from 'expo-router';
 
 const Books = () => {
   const colorScheme = useColorScheme();
   const { books } = useBooks();
+  const router = useRouter();
 
   const theme = colorScheme === 'dark' ? Colors : Colors['light'];
   return (
@@ -27,7 +29,7 @@ const Books = () => {
         keyExtractor={(item) => item.$id}
         contentContainerStyle={styles.list}
         renderItem={({item}) => (
-          <Pressable>
+          <Pressable onPress={() => router.push(`/books/${item.$id}`)}>
             <ThemedCard style={styles.card}>
               <ThemedText style={styles.title}>{item.title}</ThemedText>
               <ThemedText>{item.author}</ThemedText>
