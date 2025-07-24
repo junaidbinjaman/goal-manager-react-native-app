@@ -1,23 +1,28 @@
-import { StyleSheet, Text, useColorScheme, View } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import {StyleSheet, useColorScheme} from 'react-native';
+import React from 'react';
+import {Link} from 'expo-router';
 
 import {Colors} from '../constants/Colors';
+import ThemedView from '../components/themedView';
+import ThemedText from '../components/ThemedText';
 
 const About = () => {
     const colorScheme = useColorScheme();
-    const theme = colorScheme === 'dark' ? Colors : Colors['light'];
 
-  return (
-    <View style={[style.container, {backgroundColor: theme.background}]}>
-      <Text style={style.title}>About Page</Text>
+    return (
+        <ThemedView
+            style={[style.container]}
+        >
+            <ThemedText style={style.title}>Contact Page</ThemedText>
 
-      <Link style={style.link} href='/'>Home</Link>
-    </View>
-  )
-}
+            <Link style={style.link} href='/'>
+                <ThemedText>Home</ThemedText>
+            </Link>
+        </ThemedView>
+    );
+};
 
-export default About
+export default About;
 
 const style = StyleSheet.create({
     container: {
@@ -33,6 +38,6 @@ const style = StyleSheet.create({
 
     link: {
         marginVertical: 10,
-        borderBottomWidth: 1
-    }
+        borderBottomWidth: 1,
+    },
 });
