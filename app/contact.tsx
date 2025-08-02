@@ -3,7 +3,7 @@ import React from 'react';
 import {Link} from 'expo-router';
 
 import ThemedView from '../components/themedView';
-import ThemedText from '../components/ThemedText';
+import ThemedText from '../components/themedText';
 
 const Contact = () => {
     return (

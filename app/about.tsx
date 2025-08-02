@@ -4,7 +4,7 @@ import {Link} from 'expo-router';
 
 import {Colors} from '../constants/Colors';
 import ThemedView from '../components/themedView';
-import ThemedText from '../components/ThemedText';
+import ThemedText from '../components/themedText';
 
 const About = () => {
     const colorScheme = useColorScheme();

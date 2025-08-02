@@ -3,8 +3,8 @@ import {Link} from 'expo-router';
 import ThemedView from '../components/themedView';
 
 import ThemedLogo from '../components/themedLogo';
-import Spacer from '../components/Spacer';
-import ThemedText from '../components/ThemedText';
+import Spacer from '../components/spacer';
+import ThemedText from '../components/themedText';
 
 function Home() {
     return (
