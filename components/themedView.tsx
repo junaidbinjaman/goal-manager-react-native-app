@@ -1,13 +1,24 @@
-import {Text, View, useColorScheme} from 'react-native';
+import {
+    SafeAreaView,
+    type StyleProp,
+    useColorScheme,
+    type ViewStyle,
+} from 'react-native';
 import React from 'react';
 import {Colors} from '../constants/Colors';
 
-const ThemedView = ({style, ...props}: {style?: Object | undefined, children: React.ReactNode}) => {
+type ThemeViewProps = {
+    style?: StyleProp<ViewStyle>;
+    safe?: boolean;
+    children: React.ReactNode;
+};
+
+const ThemedView = ({style, safe = false, ...props}: ThemeViewProps) => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? Colors : Colors['light'];
 
     return (
-        <View
+        <SafeAreaView
             style={[
                 {
                     backgroundColor: theme.background,

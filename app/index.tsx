@@ -33,6 +33,14 @@ function Home() {
                 <Link style={style.link} href='/register'>
                     <ThemedText>Register Page</ThemedText>
                 </Link>
+
+                <Link style={style.link} href='/profile'>
+                    <ThemedText>Profile Page</ThemedText>
+                </Link>
+
+                <Link style={style.link} href='/register'>
+                    <ThemedText>Register Page</ThemedText>
+                </Link>
             </ThemedView>
         </>
     );
