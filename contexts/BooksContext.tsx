@@ -1,15 +1,16 @@
-import {createContext, useState, ReactNode} from 'react';
+import {createContext, useState, ReactNode, useEffect} from 'react';
 import {databases} from '../Lib/appwrite';
-import {ID, Permission, Role} from 'react-native-appwrite';
+import {ID, Permission, Query, Role, Models} from 'react-native-appwrite';
 import { useUser } from '../hooks/useUser';
 
 type BooksContextTypes = {
-    books: [];
+    books: Models.DefaultDocument[];
     fetchBooks: () => Promise<void>;
     fetchBooksById: (id: string) => Promise<void>;
     createBook: (data: any) => Promise<void>;
     deleteBook: (id: string) => Promise<void>;
 };
+
 
 const DATABASE_ID = '689bd81800325e218ae5';
 const COLLECTION_ID = '689bd83d000f710bb671';
@@ -17,12 +18,20 @@ const COLLECTION_ID = '689bd83d000f710bb671';
 export const BooksContext = createContext<BooksContextTypes | null>(null);
 
 const BooksProvider = ({children}: {children: ReactNode}) => {
-    const [books, setBooks] = useState<[]>([]);
+    const [books, setBooks] = useState<Models.DefaultDocument[]>([]);
     const { user } = useUser()
 
     async function fetchBooks() {
         try {
-            //
+            const response = await databases.listDocuments(
+                DATABASE_ID,
+                COLLECTION_ID,
+                [
+                    Query.equal('userid', user?.$id)
+                ]
+            )
+
+            setBooks(response.documents);
         } catch (error: any) {
             console.log(error.message);
         }
@@ -53,6 +62,8 @@ const BooksProvider = ({children}: {children: ReactNode}) => {
                     Permission.delete(Role.user(user?.$id)),
                 ]
             );
+
+            setBooks([...books, newBook]);
         } catch (error: any) {
             console.log(error.message);
         }
@@ -65,6 +76,14 @@ const BooksProvider = ({children}: {children: ReactNode}) => {
             console.log(error.message);
         }
     }
+
+    useEffect(() => {
+        if (user) {
+            fetchBooks();
+        } else {
+            setBooks([]);
+        }
+    }, [user])
 
     return (
         <BooksContext.Provider
